@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './app/store';
+import FootballLayout from './app/FootballLayout';
+import 'antd/dist/antd.css';
 
-const App = () => <Provider store={store}></Provider>;
+const App = () => {
+  return <FootballLayout />;
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));
