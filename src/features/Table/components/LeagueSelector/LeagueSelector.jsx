@@ -1,6 +1,9 @@
 import React from 'react';
 import { Menu } from 'antd';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { setLeague } from '../../actions';
+import { LEAGUES, ENGLISH_PREMIER_LEAGUE } from '../../constants/leagues';
 
 const LeagueSelector = () => {
   const StyledMenu = styled(Menu)`
@@ -9,13 +12,22 @@ const LeagueSelector = () => {
     display: flex;
     justify-content: space-between;
   `;
+
+  const dispatch = useDispatch();
+
+  const menuItems = Object.keys(LEAGUES).map(league => (
+    <Menu.Item key={league} onClick={() => dispatch(setLeague(league))}>
+      {LEAGUES[league]}
+    </Menu.Item>
+  ));
+
   return (
-    <StyledMenu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-      <Menu.Item key="1">English Premier League</Menu.Item>
-      <Menu.Item key="2">German 1. Bundesliga</Menu.Item>
-      <Menu.Item key="3">Spanish Primera</Menu.Item>
-      <Menu.Item key="4">Italian Serie A</Menu.Item>
-      <Menu.Item key="5">French League 1</Menu.Item>
+    <StyledMenu
+      theme="dark"
+      mode="horizontal"
+      defaultSelectedKeys={[ENGLISH_PREMIER_LEAGUE]}
+    >
+      {menuItems}
     </StyledMenu>
   );
 };

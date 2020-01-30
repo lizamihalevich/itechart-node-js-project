@@ -2,6 +2,10 @@ import React from 'react';
 
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPage } from '../../actons';
+
+import { PAGES } from '../../constants';
 
 const FootballHeader = () => {
   const { Header } = Layout;
@@ -30,6 +34,15 @@ const FootballHeader = () => {
     margin: 0 10px;
   `;
 
+  const dispatch = useDispatch();
+  const selectedKey = useSelector(state => state.header.page);
+
+  const menuItems = Object.keys(PAGES).map(page => (
+    <Menu.Item key={page} onClick={() => dispatch(setPage(page))}>
+      {PAGES[page]}
+    </Menu.Item>
+  ));
+
   return (
     <StyledHeader>
       <HeaderSummary>
@@ -37,11 +50,10 @@ const FootballHeader = () => {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={[selectedKey]}
           style={{ lineHeight: '64px' }}
         >
-          <Menu.Item key="1">table</Menu.Item>
-          <Menu.Item key="2">teams</Menu.Item>
+          {menuItems}
         </Menu>
       </HeaderSummary>
 

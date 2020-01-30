@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import reducer from '../features/FiltersWidget/reducers';
+import tableReducer from '../features/Table/reducers';
+import teamsReducer from '../features/Teams/reducers';
+import headerReducer from '../features/FootballHeader/reducers';
 
 const rootReducer = combineReducers({
-  filtersWidget: reducer
+  header: headerReducer,
+  table: tableReducer,
+  teams: teamsReducer
 });
 
 export default rootReducer;
