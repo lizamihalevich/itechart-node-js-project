@@ -1,27 +1,35 @@
 import { createAction } from '@reduxjs/toolkit';
 
-const handleTeamsResponse = httpRequest => {
-  if (httpRequest.readyState === XMLHttpRequest.DONE) {
-    if (httpRequest.status === 200) {
-      return JSON.parse(httpRequest.responseText);
-    }
-  }
+const setTableData = createAction('SET_TEAMS');
+
+const processData = data => dispatch => {
+  dispatch(setTableData(data.standings[0].table));
 };
 
-const getTeamsFromServer = id => {
+const getTeamsFromServer = id => dispatch => {
   const httpRequest = new XMLHttpRequest();
-  httpRequest.onreadystatechange = handleTeamsResponse(httpRequest);
-  const url = `https://api.football-data.org/v2/competitions/${id}/standings`;
+
+  httpRequest.onreadystatechange = () => {
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+      if (httpRequest.status === 200) {
+        dispatch(processData(JSON.parse(httpRequest.responseText)));
+      }
+    }
+  };
+
+  const url = `https://api.football-data.org/v2/competitions/${id}/standings?standingType=TOTAL`;
   httpRequest.open('GET', url);
+  httpRequest.setRequestHeader(
+    'X-Auth-Token',
+    '02f16200174644cdab2c478d648b3748'
+  );
   httpRequest.send();
 };
 
-const setTeams = createAction('SET_TEAMS');
-const getTeams = id => dispatch => {
-  const teams = getTeamsFromServer(id);
-  dispatch(setTeams(teams));
+const getTableData = id => dispatch => {
+  dispatch(getTeamsFromServer(id));
 };
 
-const setLeague = createAction('SET_LEAGUE');
+const setLeagueId = createAction('SET_LEAGUE_ID');
 
-export { setTeams, getTeams, setLeague };
+export { setTableData, getTableData, setLeagueId, getTeamsFromServer };

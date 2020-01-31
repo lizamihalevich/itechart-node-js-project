@@ -1,15 +1,15 @@
-const ENGLISH_PREMIER_LEAGUE = 'ENGLISH_PREMIER_LEAGUE';
-const GERMAN_1_BUNDESLIGA = 'GERMAN_1_BUNDESLIGA';
-const SPANISH_PRIMERA = 'SPANISH_PRIMERA';
-const ITALIAN_SERIE_A = 'ITALIAN_SERIE_A';
-const FRENCH_LEAGUE_1 = 'FRENCH_LEAGUE_1';
+const ENGLISH_PREMIER_LEAGUE = 'English Premier League';
+const GERMAN_1_BUNDESLIGA = 'German 1.Bundesliga';
+const SPANISH_PRIMERA = 'Spanish Primera';
+const ITALIAN_SERIE_A = 'Italian Serie A';
+const FRENCH_LEAGUE_1 = 'French League 1';
 
-const LEAGUES = {
-  [ENGLISH_PREMIER_LEAGUE]: 'English Premier League',
-  [GERMAN_1_BUNDESLIGA]: 'German 1.Bundesliga',
-  [SPANISH_PRIMERA]: 'Spanish Primera',
-  [ITALIAN_SERIE_A]: 'Italian Serie A',
-  [FRENCH_LEAGUE_1]: 'French League 1'
+const LEAGUES_IDS = {
+  [ENGLISH_PREMIER_LEAGUE]: '2021',
+  [GERMAN_1_BUNDESLIGA]: '2002',
+  [SPANISH_PRIMERA]: '2014',
+  [ITALIAN_SERIE_A]: '2019',
+  [FRENCH_LEAGUE_1]: '2015'
 };
 
 export {
@@ -18,5 +18,5 @@ export {
   SPANISH_PRIMERA,
   ITALIAN_SERIE_A,
   FRENCH_LEAGUE_1,
-  LEAGUES
+  LEAGUES_IDS
 };

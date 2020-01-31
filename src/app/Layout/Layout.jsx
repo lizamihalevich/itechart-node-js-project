@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout as AntLayout } from 'antd';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -9,12 +9,12 @@ import TeamsList from '../../features/Teams/components/TeamsList';
 
 import { TABLE } from '../../features/FootballHeader/constants';
 
-const FootballLayout = () => {
-  const { Content } = Layout;
+const StyledLayout = styled(AntLayout)`
+  background-color: white;
+`;
 
-  const StyledLayout = styled(Layout)`
-    background-color: white;
-  `;
+const FootballLayout = () => {
+  const { Content } = AntLayout;
 
   const page = useSelector(state => state.header.page);
   const content = page === TABLE ? <TablePage /> : <TeamsList />;
