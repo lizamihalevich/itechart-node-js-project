@@ -7,8 +7,8 @@ const TeamCard = () => {
   const { Meta } = Card;
 
   const StyledCard = styled(Card)`
-    width: 200px;
-    margin: 15px;
+    width: 48%;
+    margin: 15px 0;
   `;
 
   const CardImage = styled.img`

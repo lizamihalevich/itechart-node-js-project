@@ -1,9 +1,9 @@
 import React from 'react';
 import { Menu } from 'antd';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTableData } from '../../actions';
-import { LEAGUES_IDS, ENGLISH_PREMIER_LEAGUE } from '../../constants/leagues';
+import { LEAGUES_IDS } from '../../../constants/leagues';
 
 const StyledMenu = styled(Menu)`
   width: 50%;
@@ -14,11 +14,12 @@ const StyledMenu = styled(Menu)`
 
 const LeagueSelector = () => {
   const dispatch = useDispatch();
+  const currentLeague = useSelector(state => state.table.leagueId);
 
   const menuItems = Object.keys(LEAGUES_IDS).map(league => (
     <Menu.Item
       key={LEAGUES_IDS[league]}
-      onClick={() => dispatch(getTableData(LEAGUES_IDS[league]))}
+      onClick={() => dispatch(getTableData(LEAGUES_IDS[league], league))}
     >
       {league}
     </Menu.Item>
@@ -28,7 +29,7 @@ const LeagueSelector = () => {
     <StyledMenu
       theme="dark"
       mode="horizontal"
-      defaultSelectedKeys={[LEAGUES_IDS[ENGLISH_PREMIER_LEAGUE]]}
+      defaultSelectedKeys={[currentLeague]}
     >
       {menuItems}
     </StyledMenu>

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import FootballHeader from '../../features/FootballHeader/components/FootballHeader';
 import TablePage from '../../features/Table/components/TablePage';
-import TeamsList from '../../features/Teams/components/TeamsList';
+import TeamsPage from '../../features/Teams/components/TeamsPage';
 
 import { TABLE } from '../../features/FootballHeader/constants';
 
@@ -13,11 +13,11 @@ const StyledLayout = styled(AntLayout)`
   background-color: white;
 `;
 
-const FootballLayout = () => {
+const Layout = () => {
   const { Content } = AntLayout;
 
   const page = useSelector(state => state.header.page);
-  const content = page === TABLE ? <TablePage /> : <TeamsList />;
+  const content = page === TABLE ? <TablePage /> : <TeamsPage />;
   return (
     <StyledLayout>
       <FootballHeader />
@@ -26,4 +26,4 @@ const FootballLayout = () => {
   );
 };
 
-export default FootballLayout;
+export default Layout;
