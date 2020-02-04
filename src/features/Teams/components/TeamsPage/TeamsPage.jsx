@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { LEAGUES_IDS } from '../../../constants/leagues';
 import TeamsList from '../TeamsList';
-import { setTeamsLeague } from '../../actions';
+import { getTeamsData } from '../../actions';
 
 const { Option } = Select;
 const { Header } = Layout;
@@ -34,7 +34,7 @@ const TeamsPage = () => {
   const dispatch = useDispatch();
 
   const handleChange = league => {
-    dispatch(setTeamsLeague(league.label));
+    dispatch(getTeamsData(league.label));
   };
 
   const leagues = Object.keys(LEAGUES_IDS).map(league => (

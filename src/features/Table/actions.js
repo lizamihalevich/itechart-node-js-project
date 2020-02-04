@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-const setTableData = createAction('SET_TEAMS');
+const setTableData = createAction('SET_TABLE_DATA');
 const setLeagueId = createAction('SET_LEAGUE_ID');
 
 const processData = data => dispatch => {
