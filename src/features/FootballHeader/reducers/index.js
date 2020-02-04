@@ -1,10 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { setPage } from '../actons';
 
-import { TEAMS } from '../constants';
+import { TABLE } from '../constants';
 
 const headerReducer = createReducer(
-  { page: TEAMS },
+  { page: TABLE },
   {
     [setPage]: (state, action) => {
       state.page = action.payload;

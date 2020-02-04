@@ -21,7 +21,7 @@ const TeamsList = () => {
 
   const cards = teamsInfo.map(team => (
     <TeamCard
-      key={team.name}
+      key={team.id}
       imageSrc={team.imageUrl}
       title={team.name}
       shortName={team.shortName}

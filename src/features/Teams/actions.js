@@ -23,9 +23,7 @@ const getTeamsInfoFromServer = id => dispatch => {
   httpRequest.open('GET', url);
   httpRequest.setRequestHeader(
     'X-Auth-Token',
-    '02f16200174644cdab2c478d648b3748',
-    'Access-Control-Allow-Origin',
-    '*'
+    '02f16200174644cdab2c478d648b3748'
   );
   httpRequest.send();
 };
