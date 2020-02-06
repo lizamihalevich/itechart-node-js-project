@@ -1,3 +1,1 @@
-import FootballHeader from './FootballHeader';
-
-export default FootballHeader;
+export { default } from './FootballHeader';

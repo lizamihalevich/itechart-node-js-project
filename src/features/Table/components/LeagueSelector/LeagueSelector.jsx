@@ -3,10 +3,11 @@ import { Menu } from 'antd';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTableData } from '../../actions';
-import { LEAGUES_IDS } from '../../../constants/leagues';
+import { LEAGUES_IDS } from '../../../../constants/leagues';
 
 const StyledMenu = styled(Menu)`
-  width: 50%;
+  max-width: 1000px;
+  width: 100%;
   margin: 30px auto 0 auto;
   display: flex;
   justify-content: space-between;

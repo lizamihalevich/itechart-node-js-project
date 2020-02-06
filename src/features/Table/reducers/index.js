@@ -1,7 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { setTableData, setLeagueId } from '../actions';
-import { LEAGUES_IDS, ENGLISH_PREMIER_LEAGUE } from '../../constants/leagues';
+import {
+  LEAGUES_IDS,
+  ENGLISH_PREMIER_LEAGUE
+} from '../../../constants/leagues';
 
 const tableReducer = createReducer(
   {

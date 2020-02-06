@@ -3,7 +3,7 @@ import React from 'react';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage } from '../../actons';
+import setPage from '../../actions';
 
 import { PAGES } from '../../constants';
 

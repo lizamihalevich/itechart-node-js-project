@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { setTeamsLeague, setTeamsData } from '../actions';
-import { ENGLISH_PREMIER_LEAGUE } from '../../constants/leagues';
+import { ENGLISH_PREMIER_LEAGUE } from '../../../constants/leagues';
 
 const teamsReducer = createReducer(
   {

@@ -1,3 +1,1 @@
-import TeamPageHeader from './TeamPageHeader';
-
-export default TeamPageHeader;
+export { default } from './TeamPageHeader';

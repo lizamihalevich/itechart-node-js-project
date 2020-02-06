@@ -1,3 +1,1 @@
-import LeagueSummary from './LeagueSummary';
-
-export default LeagueSummary;
+export { default } from './LeagueSummary';

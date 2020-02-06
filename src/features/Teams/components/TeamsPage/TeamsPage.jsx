@@ -3,7 +3,7 @@ import React from 'react';
 import { Select, Layout } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { LEAGUES_IDS } from '../../../constants/leagues';
+import { LEAGUES_IDS } from '../../../../constants/leagues';
 import TeamsList from '../TeamsList';
 import { getTeamsData } from '../../actions';
 

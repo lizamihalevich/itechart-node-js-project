@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { LEAGUES_IDS } from '../constants/leagues';
+import { LEAGUES_IDS } from '../../constants/leagues';
 
 const setTeamsLeague = createAction('SET_TEAMS_LEAGUE');
 const setTeamsData = createAction('SET_TEAMS_DATA');

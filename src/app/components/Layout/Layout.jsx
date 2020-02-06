@@ -3,11 +3,11 @@ import { Layout as AntLayout } from 'antd';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import FootballHeader from '../../features/FootballHeader/components/FootballHeader';
-import TablePage from '../../features/Table/components/TablePage';
-import TeamsPage from '../../features/Teams/components/TeamsPage';
+import FootballHeader from '../../../features/FootballHeader';
+import TablePage from '../../../features/Table';
+import TeamsPage from '../../../features/Teams';
 
-import { TABLE } from '../../features/FootballHeader/constants';
+import { TABLE } from '../../../features/FootballHeader/constants';
 
 const StyledLayout = styled(AntLayout)`
   background-color: white;

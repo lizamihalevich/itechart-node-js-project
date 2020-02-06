@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setPage } from '../actons';
+import setPage from '../actions';
 
 import { TABLE } from '../constants';
 

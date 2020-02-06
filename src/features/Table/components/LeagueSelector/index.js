@@ -1,3 +1,1 @@
-import LeagueSelector from './LeagueSelector';
-
-export default LeagueSelector;
+export { default } from './LeagueSelector';
