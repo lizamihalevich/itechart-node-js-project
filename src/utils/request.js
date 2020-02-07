@@ -1,6 +1,6 @@
-const request = (url, method, headers, queryParams, body) => {
-  queryParams = queryParams || '';
-  body = body || '';
+const request = (url, method, headers, queryString, body) => {
+  const queryParams = queryString || '';
+  const bodyParams = body || '';
 
   const xhr = new XMLHttpRequest();
   xhr.open(method, url + queryParams);
@@ -14,25 +14,19 @@ const request = (url, method, headers, queryParams, body) => {
   Object.entries(headers).forEach(([key, value]) => {
     xhr.setRequestHeader(key, value);
   });
-  xhr.send(body);
+  xhr.send(bodyParams);
 };
 
-const requestData = {
-  get(url, headers, queryParams) {
-    request(url, 'GET', headers, queryParams);
-  },
-
-  post(url, headers, body) {
-    request(url, 'POST', headers, body);
-  },
-
-  put(url, headers, body) {
-    request(url, 'PUT', headers, body);
-  },
-
-  delete(url, headers, body) {
-    request(url, 'DELETE', headers, body);
-  }
+const get = (url, queryParams, headers) => {
+  request(url, 'GET', Headers, queryParams);
 };
 
-export default requestData;
+const post = (url, headers, body) => {
+  request(url, 'POST', headers, body);
+};
+
+const put = (url, headers, body) => {
+  request(url, 'PUT', headers, body);
+};
+
+export { get, post, put };
