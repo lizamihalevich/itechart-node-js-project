@@ -1,32 +1,33 @@
-const request = (url, method, headers, queryString, body) => {
-  const queryParams = queryString || '';
-  const bodyParams = body || '';
+const request = params => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
 
-  const xhr = new XMLHttpRequest();
-  xhr.open(method, url + queryParams);
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        return JSON.parse(xhr.responseText);
+    const queryString = params.queryParams
+      ? Object.keys(params.queryParams)
+          .map(key => `${key}=${params[key]}`)
+          .join('&')
+      : '';
+
+    const url = params.queryParams
+      ? `${params.url}?${queryString}`
+      : params.url;
+
+    xhr.open(params.method || 'GET', url);
+
+    Object.entries(params.headers).forEach(([key, value]) => {
+      xhr.setRequestHeader(key, value);
+    });
+
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(JSON.parse(xhr.responseText));
+      } else {
+        reject(xhr.statusText);
       }
-    }
-  };
-  Object.entries(headers).forEach(([key, value]) => {
-    xhr.setRequestHeader(key, value);
+    };
+    xhr.onerror = () => reject(xhr.statusText);
+    xhr.send(params.body);
   });
-  xhr.send(bodyParams);
 };
 
-const get = (url, queryParams, headers) => {
-  request(url, 'GET', Headers, queryParams);
-};
-
-const post = (url, headers, body) => {
-  request(url, 'POST', headers, body);
-};
-
-const put = (url, headers, body) => {
-  request(url, 'PUT', headers, body);
-};
-
-export { get, post, put };
+export { request };
