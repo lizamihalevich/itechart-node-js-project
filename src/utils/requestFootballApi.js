@@ -1,11 +1,13 @@
 import { request } from './request';
 
 const requestWithAuth = (params, headers) => {
-  params.headers = {
-    'X-Auth-Token': '02f16200174644cdab2c478d648b3748',
-    ...headers
-  };
-  return request(params);
+  return request({
+    ...params,
+    headers: {
+      'X-Auth-Token': '02f16200174644cdab2c478d648b3748',
+      ...headers
+    }
+  });
 };
 
 const get = (url, queryString, headers) => {

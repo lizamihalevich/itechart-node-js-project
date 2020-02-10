@@ -9,13 +9,16 @@ const processData = data => dispatch => {
   dispatch(setTeamsData(data.teams));
 };
 
-const getTeamsInfoFromServer = id => dispatch => {
+const getTeamsInfoFromServer = id => async dispatch => {
   const url = `https://api.football-data.org/v2/competitions/${id}/teams`;
-  get(url)
-    .then(data => dispatch(processData(data)))
-    .catch(e => {
-      throw e;
-    });
+  // get(url)
+  //   .then(data => dispatch(processData(data)))
+  //   .catch(e => {
+  //     throw e;
+  //   });
+
+  const data = await get(url);
+  dispatch(processData(data));
 };
 
 const getTeamsData = league => dispatch => {

@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { Menu, Card } from 'antd';
 
 const StyledCard = styled(Card)`
-  width: 40%;
+  width: 100%;
+  max-width: 600px;
   margin: 50px auto;
 `;
 

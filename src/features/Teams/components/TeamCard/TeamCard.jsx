@@ -22,7 +22,7 @@ const TeamCard = ({ imageSrc, title, shortName }) => {
   const { Meta } = Card;
 
   return (
-    <StyledCard>
+    <StyledCard hoverable>
       <Meta
         avatar={<CardImage alt={title} src={imageSrc} />}
         title={title}

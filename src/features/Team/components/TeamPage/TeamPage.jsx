@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Layout } from 'antd';
 import TeamPageHeader from '../TeamPageHeader';
+import PlayersList from '../PlayersList';
 
 const { Header } = Layout;
 
@@ -11,7 +12,8 @@ const StyledLayout = styled(Layout)`
 `;
 
 const StyledHeader = styled(Header)`
-  width: 40%;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
   color: white;
   font-size: 20px;
@@ -29,6 +31,7 @@ const TeamPage = () => {
       <StyledLayout>
         <StyledHeader>Players</StyledHeader>
       </StyledLayout>
+      <PlayersList />
     </>
   );
 };
