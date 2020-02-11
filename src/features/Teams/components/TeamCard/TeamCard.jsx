@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Card, Button } from 'antd';
 
@@ -18,16 +19,19 @@ const CardImage = styled.img`
   width: 40px;
 `;
 
-const TeamCard = ({ imageSrc, title, shortName }) => {
+const TeamCard = ({ imageSrc, title, shortName, id }) => {
   const { Meta } = Card;
 
+  const { url } = useRouteMatch();
   return (
     <StyledCard hoverable>
-      <Meta
-        avatar={<CardImage alt={title} src={imageSrc} />}
-        title={title}
-        description={`Short name: ${shortName}`}
-      />
+      <Link to={`${url}/${id}`}>
+        <Meta
+          avatar={<CardImage alt={title} src={imageSrc} />}
+          title={title}
+          description={`Short name: ${shortName}`}
+        />
+      </Link>
       <StyledButton type="primary">Add team to favorites</StyledButton>
     </StyledCard>
   );
@@ -36,7 +40,8 @@ const TeamCard = ({ imageSrc, title, shortName }) => {
 TeamCard.propTypes = {
   imageSrc: PropTypes.string,
   title: PropTypes.string,
-  shortName: PropTypes.string
+  shortName: PropTypes.string,
+  id: PropTypes.number
 };
 
 export default TeamCard;

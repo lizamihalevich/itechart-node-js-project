@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
   max-width: 600px;
+  margin: 20px auto;
   width: 100%;
 `;
 const StandingCard = () => {

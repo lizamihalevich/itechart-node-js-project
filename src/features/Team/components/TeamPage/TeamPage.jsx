@@ -1,37 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import styled from 'styled-components';
-import { Layout } from 'antd';
+import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import TeamPageHeader from '../TeamPageHeader';
 import PlayersList from '../PlayersList';
+import StandingsList from '../StandingsList/StandingsList';
+import { getTeamData } from '../../actions';
 
-const { Header } = Layout;
+const TeamPage = ({ match: { params } }) => {
+  const { path } = useRouteMatch();
+  const teamId = params.team_id;
 
-const StyledLayout = styled(Layout)`
-  background-color: white;
-`;
+  const teamData = useSelector(state => state.team.teamData);
+  const dispatch = useDispatch();
 
-const StyledHeader = styled(Header)`
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  color: white;
-  font-size: 20px;
-  font-weight: 500;
-`;
+  useEffect(() => dispatch(getTeamData(teamId)), []);
 
-const TeamPage = () => {
   return (
     <>
       <TeamPageHeader
-        src="http://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"
-        title="Arsenal"
-        shortName="Arsenal"
+        src={teamData.crestUrl}
+        title={teamData.name}
+        shortName={teamData.shortName}
       />
-      <StyledLayout>
-        <StyledHeader>Players</StyledHeader>
-      </StyledLayout>
-      <PlayersList />
+      <Switch>
+        <Route path={`${path}/players`} component={PlayersList} />
+        <Route path={`${path}/standings`} component={StandingsList} />
+        <Redirect from={path} to={`${path}/players`} />
+      </Switch>
     </>
   );
 };
