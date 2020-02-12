@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
@@ -31,16 +32,12 @@ const StyledButton = styled(Button)`
 `;
 
 const FootballHeader = () => {
+  // console.log(pathname);
   return (
     <StyledHeader>
       <HeaderSummary>
         <StyledH1>Football statistics</StyledH1>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['table']}
-          style={{ lineHeight: '64px' }}
-        >
+        <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
           <Menu.Item key="table">
             <Link to="/table">table</Link>
           </Menu.Item>
@@ -57,6 +54,14 @@ const FootballHeader = () => {
       </Authentication>
     </StyledHeader>
   );
+};
+
+FootballHeader.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string
+    })
+  })
 };
 
 export default FootballHeader;

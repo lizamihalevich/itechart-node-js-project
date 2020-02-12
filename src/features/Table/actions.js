@@ -8,14 +8,15 @@ const processData = data => dispatch => {
   dispatch(setTableData(data.standings[0].table));
 };
 
-const getTeamsFromServer = id => dispatch => {
+const getTeamsFromServer = id => async dispatch => {
   const url = `https://api.football-data.org/v2/competitions/${id}/standings`;
 
-  get(url, { standingType: 'TOTAL' })
-    .then(data => dispatch(processData(data)))
-    .catch(e => {
-      throw e;
-    });
+  try {
+    const data = await get(url, { params: { standingType: 'TOTAL' } });
+    dispatch(processData(data.data));
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 const getTableData = id => dispatch => {

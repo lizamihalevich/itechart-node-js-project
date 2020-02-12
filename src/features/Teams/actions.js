@@ -16,9 +16,12 @@ const getTeamsInfoFromServer = id => async dispatch => {
   //   .catch(e => {
   //     throw e;
   //   });
-
-  const data = await get(url);
-  dispatch(processData(data));
+  try {
+    const response = await get(url);
+    dispatch(processData(response.data));
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 const getTeamsData = league => dispatch => {

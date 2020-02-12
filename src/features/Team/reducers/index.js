@@ -4,8 +4,7 @@ import { setTeamData } from '../actions';
 
 const teamReducer = createReducer(
   {
-    teamData: [],
-    teamPlayers: []
+    teamData: []
   },
   {
     [setTeamData]: (state, action) => {

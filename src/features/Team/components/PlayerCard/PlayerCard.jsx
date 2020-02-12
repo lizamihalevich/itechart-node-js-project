@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'antd';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const { Meta } = Card;
 
@@ -34,14 +35,18 @@ const StyledTitle = styled.div`
 `;
 
 const PlayerCard = ({ name, position, birthDate, squadNumber }) => {
+  const birthDateParsed = moment(birthDate)
+    .utc()
+    .format('DD-MM-YYYY');
+  const shirtNumber = squadNumber || 'N/A';
   return (
     <StyledCard>
       <Meta
-        avatar={<StyledDiv>{squadNumber}</StyledDiv>}
+        avatar={<StyledDiv>{shirtNumber}</StyledDiv>}
         title={<StyledTitle>{name}</StyledTitle>}
       />
       <StyledParagraph>{`Position: ${position}`}</StyledParagraph>
-      <StyledParagraph>{`Date of birth: ${birthDate}`}</StyledParagraph>
+      <StyledParagraph>{`Date of birth: ${birthDateParsed}`}</StyledParagraph>
     </StyledCard>
   );
 };
@@ -50,7 +55,7 @@ PlayerCard.propTypes = {
   name: PropTypes.string,
   position: PropTypes.string,
   birthDate: PropTypes.string,
-  squadNumber: PropTypes.string
+  squadNumber: PropTypes.number
 };
 
 export default PlayerCard;
