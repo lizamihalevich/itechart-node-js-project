@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Layout as AntLayout } from 'antd';
 import styled from 'styled-components';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -14,10 +15,11 @@ const StyledLayout = styled(AntLayout)`
   background-color: white;
 `;
 
-const Layout = () => {
+const Layout = ({ location: { pathname } }) => {
+  const activeMenuTab = pathname.includes('table') ? 'table' : 'teams';
   return (
     <StyledLayout>
-      <FootballHeader />
+      <FootballHeader activeMenuTab={activeMenuTab} />
       <Content>
         <Switch>
           <Route path="/teams/:team_id" component={Team} />
@@ -28,6 +30,12 @@ const Layout = () => {
       </Content>
     </StyledLayout>
   );
+};
+
+Layout.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string
+  })
 };
 
 export default Layout;

@@ -2,6 +2,8 @@ import { createAction } from '@reduxjs/toolkit';
 import { get } from '../../utils/requestFootballApi';
 
 const setTeamData = createAction('SET_TEAM_DATA');
+const setStandings = createAction('SET_STANDINGS');
+const setStandingsRange = createAction('SET_STANDINGS_RANGE');
 
 const getTeamDataFromServer = id => async dispatch => {
   const url = `https://api.football-data.org/v2/teams/${id}`;
@@ -18,4 +20,25 @@ const getTeamData = id => dispatch => {
   dispatch(getTeamDataFromServer(id));
 };
 
-export { setTeamData, getTeamData };
+const getStandingsDataFromServer = id => async dispatch => {
+  const url = `http://api.football-data.org/v2/teams/${id}/matches`;
+
+  try {
+    const response = await get(url);
+    dispatch(setStandings(response.data));
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const getStandingsData = id => dispatch => {
+  dispatch(getStandingsDataFromServer(id));
+};
+
+export {
+  setTeamData,
+  getTeamData,
+  setStandings,
+  getStandingsData,
+  setStandingsRange
+};

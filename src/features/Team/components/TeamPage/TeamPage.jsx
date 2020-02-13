@@ -8,12 +8,10 @@ import PlayersList from '../PlayersList';
 import StandingsList from '../StandingsList/StandingsList';
 import { getTeamData } from '../../actions';
 
-const TeamPage = ({ match: { params }, location: { pathname } }) => {
+const TeamPage = ({ match: { params } }) => {
   const { path } = useRouteMatch();
-  console.log(pathname);
   const teamId = params.team_id;
   const teamData = useSelector(state => state.team.teamData);
-  // const squad = useSelector(state => squadDataDisplaySelector(state));
 
   const dispatch = useDispatch();
   useEffect(() => dispatch(getTeamData(teamId)), []);
@@ -42,9 +40,6 @@ TeamPage.propTypes = {
     params: PropTypes.shape({
       team_id: PropTypes.string
     })
-  }),
-  location: PropTypes.shape({
-    pathname: PropTypes.string
   })
 };
 export default TeamPage;

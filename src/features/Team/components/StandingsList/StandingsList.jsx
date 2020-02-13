@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { DatePicker } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import moment from 'moment';
 import StandingCard from '../StandingCard';
 import ListHeader from '../ListHeader';
+import { setStandingsRange, getStandingsData } from '../../actions';
+import {
+  standingsDuringDateSelector,
+  standingsSelector
+} from '../../selectors';
 
 const { RangePicker } = DatePicker;
 
@@ -18,16 +25,35 @@ const StyledRangePicker = styled(RangePicker)`
   width: 100%;
 `;
 
-const StandingsList = () => {
+const StandingsList = ({ teamId }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(getStandingsData(teamId)), []);
+
+  const handleDatePickerChange = value => {
+    dispatch(
+      setStandingsRange([moment(value[0]).format(), moment(value[1]).format()])
+    );
+  };
+
+  const standings = useSelector(state => standingsSelector(state));
+
+  console.log(standings);
   return (
     <>
       <ListHeader pageName="Standings" />
       <RangePickerWrap>
-        <StyledRangePicker defaultValue={[moment(), moment().add(2, 'w')]} />
+        <StyledRangePicker
+          onChange={handleDatePickerChange}
+          defaultValue={[moment(), moment().add(2, 'w')]}
+        />
       </RangePickerWrap>
       <StandingCard />;
     </>
   );
 };
 
+StandingsList.propTypes = {
+  teamId: PropTypes.string
+};
 export default StandingsList;

@@ -31,13 +31,17 @@ const StyledButton = styled(Button)`
   margin: 0 10px;
 `;
 
-const FootballHeader = () => {
-  // console.log(pathname);
+const FootballHeader = ({ activeMenuTab }) => {
   return (
     <StyledHeader>
       <HeaderSummary>
         <StyledH1>Football statistics</StyledH1>
-        <Menu theme="dark" mode="horizontal" style={{ lineHeight: '64px' }}>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={[activeMenuTab]}
+          style={{ lineHeight: '64px' }}
+        >
           <Menu.Item key="table">
             <Link to="/table">table</Link>
           </Menu.Item>
@@ -57,11 +61,7 @@ const FootballHeader = () => {
 };
 
 FootballHeader.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.string
-    })
-  })
+  activeMenuTab: PropTypes.string
 };
 
 export default FootballHeader;

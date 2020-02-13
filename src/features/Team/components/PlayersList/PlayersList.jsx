@@ -4,7 +4,6 @@ import PlayerCard from '../PlayerCard';
 import ListHeader from '../ListHeader';
 
 const PlayersList = ({ squad }) => {
-  console.log(squad);
   const players = squad.map(player => (
     <PlayerCard
       key={player.id}

@@ -1,7 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
+import moment from 'moment';
 import sort from '../../../utils/sort';
 
 const squadSelector = state => state.team.teamData.squad;
+const standingsSelector = state => state.team.standings.matches;
+const standingsRangeSelector = state => state.team.standingsRange;
 
 const squadDataDisplaySelector = createSelector(squadSelector, squad =>
   squad
@@ -17,4 +20,16 @@ const squadDataDisplaySelector = createSelector(squadSelector, squad =>
     .sort((player1, player2) => sort(player1.shirtNumber, player2.shirtNumber))
 );
 
-export { squadSelector, squadDataDisplaySelector };
+const standingsDuringDateSelector = createSelector(
+  standingsSelector,
+  standingsRangeSelector,
+  (matches, range) =>
+    matches.filter(match => moment(match.utcDate).isBetween(range[0], range[1]))
+);
+
+export {
+  squadSelector,
+  squadDataDisplaySelector,
+  standingsDuringDateSelector,
+  standingsSelector
+};
