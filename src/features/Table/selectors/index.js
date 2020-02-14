@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 const tableDataSelector = state => state.table.tableData;
+// const teamIdSelector = createSelector(tableDataSelector
 
 const tableStandingsSelector = createSelector(tableDataSelector, teams =>
   teams.map((team, index) => {
@@ -14,7 +15,8 @@ const tableStandingsSelector = createSelector(tableDataSelector, teams =>
       l: team.lost,
       gs: team.goalsFor,
       gc: team.goalsAgainst,
-      p: team.points
+      p: team.points,
+      id: team.team.id
     };
   })
 );

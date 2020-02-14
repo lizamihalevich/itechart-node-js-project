@@ -73,6 +73,7 @@ const Styledtable = styled(Table)`
 
 const LeagueSummary = () => {
   const data = useSelector(state => tableStandingsSelector(state));
+  console.log(data);
   const leagueId = useSelector(state => state.table.leagueId);
   const dispatch = useDispatch();
 

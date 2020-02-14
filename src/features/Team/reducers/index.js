@@ -5,6 +5,7 @@ import { setTeamData, setStandings, setStandingsRange } from '../actions';
 const teamReducer = createReducer(
   {
     teamData: [],
+    squad: [],
     standings: [],
     standingsRange: [
       moment().format(),
@@ -16,6 +17,7 @@ const teamReducer = createReducer(
   {
     [setTeamData]: (state, action) => {
       state.teamData = action.payload;
+      state.squad = action.payload.squad;
     },
 
     [setStandings]: (state, action) => {

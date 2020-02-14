@@ -7,10 +7,7 @@ import moment from 'moment';
 import StandingCard from '../StandingCard';
 import ListHeader from '../ListHeader';
 import { setStandingsRange, getStandingsData } from '../../actions';
-import {
-  standingsDuringDateSelector,
-  standingsSelector
-} from '../../selectors';
+import { standingsBetweenRangeSelector } from '../../selectors';
 
 const { RangePicker } = DatePicker;
 
@@ -36,19 +33,36 @@ const StandingsList = ({ teamId }) => {
     );
   };
 
-  const standings = useSelector(state => standingsSelector(state));
+  const standingsRange = useSelector(state => state.team.standingsRange);
 
-  console.log(standings);
+  const standingsBetweenRange = useSelector(state =>
+    standingsBetweenRangeSelector(state)
+  );
+
+  const standingCards = standingsBetweenRange.map(match => (
+    <StandingCard
+      key={match.id}
+      homeTeamName={match.homeTeam.name}
+      awayTeamName={match.awayTeam.name}
+      score={
+        match.status === 'FINISHED'
+          ? `${match.score.fullTime.homeTeam} - ${match.score.fullTime.awayTeam}`
+          : ''
+      }
+      date={moment(match.utcDate).format('LLLL')}
+    />
+  ));
+
   return (
     <>
       <ListHeader pageName="Standings" />
       <RangePickerWrap>
         <StyledRangePicker
           onChange={handleDatePickerChange}
-          defaultValue={[moment(), moment().add(2, 'w')]}
+          defaultValue={[moment(standingsRange[0]), moment(standingsRange[1])]}
         />
       </RangePickerWrap>
-      <StandingCard />;
+      {standingCards};
     </>
   );
 };

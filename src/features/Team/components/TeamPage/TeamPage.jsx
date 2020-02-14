@@ -7,11 +7,13 @@ import TeamPageHeader from '../TeamPageHeader';
 import PlayersList from '../PlayersList';
 import StandingsList from '../StandingsList/StandingsList';
 import { getTeamData } from '../../actions';
+import { squadDataDisplaySelector } from '../../selectors';
 
 const TeamPage = ({ match: { params } }) => {
   const { path } = useRouteMatch();
   const teamId = params.team_id;
   const teamData = useSelector(state => state.team.teamData);
+  const filteredSquad = useSelector(state => squadDataDisplaySelector(state));
 
   const dispatch = useDispatch();
   useEffect(() => dispatch(getTeamData(teamId)), []);
@@ -22,9 +24,10 @@ const TeamPage = ({ match: { params } }) => {
         title={teamData.name}
         shortName={teamData.shortName}
       />
+
       <Switch>
         <Route path={`${path}/players`}>
-          <PlayersList squad={teamData.squad} />
+          <PlayersList squad={filteredSquad} />
         </Route>
         <Route path={`${path}/standings`}>
           <StandingsList teamId={teamId} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Menu, Card } from 'antd';
 
@@ -31,6 +31,8 @@ const TeamPageHeader = ({ src, title, shortName }) => {
   const { Meta } = Card;
 
   const { url } = useRouteMatch();
+  const path = useLocation();
+  const activeTab = path.pathname.includes('players') ? 'players' : 'standings';
   return (
     <StyledCard>
       <Meta
@@ -38,11 +40,11 @@ const TeamPageHeader = ({ src, title, shortName }) => {
         title={title}
         description={`Short name: ${shortName}`}
       />
-      <StyledMenu defaultSelectedKeys={['1']}>
-        <MenuItem key="1">
+      <StyledMenu selectedKeys={[activeTab]}>
+        <MenuItem key="players">
           <Link to={`${url}/players`}>Players</Link>
         </MenuItem>
-        <MenuItem key="2">
+        <MenuItem key="standings">
           <Link to={`${url}/standings`}>Standings</Link>
         </MenuItem>
       </StyledMenu>

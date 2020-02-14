@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Layout as AntLayout } from 'antd';
 import styled from 'styled-components';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import FootballHeader from '../../../features/FootballHeader';
 import TablePage from '../../../features/Table';
@@ -15,8 +14,9 @@ const StyledLayout = styled(AntLayout)`
   background-color: white;
 `;
 
-const Layout = ({ location: { pathname } }) => {
-  const activeMenuTab = pathname.includes('table') ? 'table' : 'teams';
+const Layout = () => {
+  const path = useLocation();
+  const activeMenuTab = path.pathname.includes('table') ? 'table' : 'teams';
   return (
     <StyledLayout>
       <FootballHeader activeMenuTab={activeMenuTab} />
@@ -30,12 +30,6 @@ const Layout = ({ location: { pathname } }) => {
       </Content>
     </StyledLayout>
   );
-};
-
-Layout.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string
-  })
 };
 
 export default Layout;

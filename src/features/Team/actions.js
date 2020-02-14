@@ -25,7 +25,7 @@ const getStandingsDataFromServer = id => async dispatch => {
 
   try {
     const response = await get(url);
-    dispatch(setStandings(response.data));
+    dispatch(setStandings(response.data.matches));
   } catch (e) {
     throw new Error(e);
   }

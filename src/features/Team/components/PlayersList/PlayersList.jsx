@@ -9,7 +9,7 @@ const PlayersList = ({ squad }) => {
       key={player.id}
       name={player.name}
       position={player.position}
-      birthDate={player.birthdate}
+      birthDate={player.dateOfBirth}
       squadNumber={player.shirtNumber}
     />
   ));
