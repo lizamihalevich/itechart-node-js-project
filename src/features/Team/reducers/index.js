@@ -1,6 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import moment from 'moment';
-import { setTeamData, setStandings, setStandingsRange } from '../actions';
+import {
+  setTeamData,
+  setStandings,
+  setStandingsRange,
+  setTotalSquadNumber,
+  setCurrentSquadPage,
+  setCurrentSquadList,
+  setCurrentStandingsPage,
+  setCurrentStandingsList
+} from '../actions';
 
 const teamReducer = createReducer(
   {
@@ -12,7 +21,13 @@ const teamReducer = createReducer(
       moment()
         .add(2, 'w')
         .format()
-    ]
+    ],
+    totalSquadNumber: 1,
+    currentSquadPage: 1,
+    currentSquadList: [],
+    totalStandingsNumber: 1,
+    currentStandingsPage: 1,
+    currentStandingsList: []
   },
   {
     [setTeamData]: (state, action) => {
@@ -26,6 +41,26 @@ const teamReducer = createReducer(
 
     [setStandingsRange]: (state, action) => {
       state.standingsRange = action.payload;
+    },
+
+    [setCurrentSquadPage]: (state, action) => {
+      state.currentSquadPage = action.payload;
+    },
+
+    [setTotalSquadNumber]: (state, action) => {
+      state.totalSquadNumber = action.payload;
+    },
+
+    [setCurrentSquadList]: (state, action) => {
+      state.currentSquadList = action.payload;
+    },
+
+    [setCurrentStandingsPage]: (state, action) => {
+      state.currentStandingsPage = action.payload;
+    },
+
+    [setCurrentStandingsList]: (state, action) => {
+      state.currentStandingsList = action.payload;
     }
   }
 );

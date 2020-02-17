@@ -4,6 +4,12 @@ import { get } from '../../utils/requestFootballApi';
 const setTeamData = createAction('SET_TEAM_DATA');
 const setStandings = createAction('SET_STANDINGS');
 const setStandingsRange = createAction('SET_STANDINGS_RANGE');
+const setCurrentSquadPage = createAction('SET_CURRENT_SQUAD_PAGE');
+const setTotalSquadNumber = createAction('SET_TOTAL_SQUAD_NUMBER');
+const setCurrentSquadList = createAction('SET_CURRENT_SQUAD_LIST');
+const setTotalStandingsNumber = createAction('SET_TOTAL_STANDINGS_NUMBER');
+const setCurrentStandingsPage = createAction('SET_CURRENT_STANDINGS_PAGE');
+const setCurrentStandingsList = createAction('SET_CURRENT_STANDINGS_LIST');
 
 const getTeamDataFromServer = id => async dispatch => {
   const url = `https://api.football-data.org/v2/teams/${id}`;
@@ -11,6 +17,7 @@ const getTeamDataFromServer = id => async dispatch => {
   try {
     const response = await get(url);
     dispatch(setTeamData(response.data));
+    dispatch(setTotalSquadNumber(response.data.squad.length));
   } catch (e) {
     throw new Error(e);
   }
@@ -40,5 +47,11 @@ export {
   getTeamData,
   setStandings,
   getStandingsData,
-  setStandingsRange
+  setStandingsRange,
+  setCurrentSquadPage,
+  setTotalSquadNumber,
+  setCurrentSquadList,
+  setCurrentStandingsPage,
+  setCurrentStandingsList,
+  setTotalStandingsNumber
 };

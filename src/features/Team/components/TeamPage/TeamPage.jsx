@@ -24,7 +24,6 @@ const TeamPage = ({ match: { params } }) => {
         title={teamData.name}
         shortName={teamData.shortName}
       />
-
       <Switch>
         <Route path={`${path}/players`}>
           <PlayersList squad={filteredSquad} />
