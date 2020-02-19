@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import PlayerCard from '../PlayerCard';
 import ListHeader from '../ListHeader';
 import { setCurrentSquadPage, setCurrentSquadList } from '../../actions';
+import { LIST_OFFSET } from '../../../../constants/teamLists';
 
 const StyledPagination = styled(Pagination)`
   margin: 15px;
@@ -14,18 +15,21 @@ const StyledPagination = styled(Pagination)`
 `;
 
 const PlayersList = ({ squad }) => {
-  const offset = 5;
   const totalSquadNumber = useSelector(state => state.team.totalSquadNumber);
   const currentPage = useSelector(state => state.team.currentSquadPage);
   const currentSquadList = useSelector(state => state.team.currentSquadList);
   const dispatch = useDispatch();
 
-  // useEffect(() => dispatch(setCurrentSquadList(squad)), []);
+  useEffect(() => {
+    dispatch(setCurrentSquadList(squad.slice(0, LIST_OFFSET)));
+  }, [squad]);
 
   const onPaginationChange = page => {
     dispatch(setCurrentSquadPage(page));
     dispatch(
-      setCurrentSquadList(squad.slice((page - 1) * offset, page * offset))
+      setCurrentSquadList(
+        squad.slice((page - 1) * LIST_OFFSET, page * LIST_OFFSET)
+      )
     );
   };
 
@@ -43,7 +47,7 @@ const PlayersList = ({ squad }) => {
       <ListHeader pageName="Players" />
       <StyledPagination
         defaultCurrent={1}
-        defaultPageSize={offset}
+        defaultPageSize={LIST_OFFSET}
         hideOnSinglePage
         total={totalSquadNumber}
         current={currentPage}
@@ -52,7 +56,7 @@ const PlayersList = ({ squad }) => {
       {players}
       <StyledPagination
         defaultCurrent={1}
-        defaultPageSize={offset}
+        defaultPageSize={LIST_OFFSET}
         hideOnSinglePage
         total={totalSquadNumber}
         current={currentPage}

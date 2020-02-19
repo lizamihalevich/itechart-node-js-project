@@ -8,7 +8,8 @@ import {
   setCurrentSquadPage,
   setCurrentSquadList,
   setCurrentStandingsPage,
-  setCurrentStandingsList
+  setCurrentStandingsList,
+  setTotalStandingsNumber
 } from '../actions';
 
 const teamReducer = createReducer(
@@ -61,6 +62,10 @@ const teamReducer = createReducer(
 
     [setCurrentStandingsList]: (state, action) => {
       state.currentStandingsList = action.payload;
+    },
+
+    [setTotalStandingsNumber]: (state, action) => {
+      state.totalStandingsNumber = action.payload;
     }
   }
 );

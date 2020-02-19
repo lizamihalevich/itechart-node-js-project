@@ -17,6 +17,7 @@ const TeamPage = ({ match: { params } }) => {
 
   const dispatch = useDispatch();
   useEffect(() => dispatch(getTeamData(teamId)), []);
+
   return (
     <>
       <TeamPageHeader
@@ -44,4 +45,5 @@ TeamPage.propTypes = {
     })
   })
 };
+
 export default TeamPage;

@@ -19,7 +19,8 @@
     "consistent-return": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "array-callback-return": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "import/prefer-default-export": "off"
   },
   "plugins": ["jsx-a11y", "prettier"],
   "parserOptions": {

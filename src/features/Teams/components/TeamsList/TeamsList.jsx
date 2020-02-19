@@ -28,6 +28,7 @@ const TeamsList = () => {
       shortName={team.shortName}
     />
   ));
+
   return <StyledDiv>{cards}</StyledDiv>;
 };
 

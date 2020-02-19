@@ -8,6 +8,7 @@ const StyledCard = styled(Card)`
   margin: 20px auto;
   width: 100%;
 `;
+
 const StandingCard = ({ homeTeamName, awayTeamName, score, date }) => {
   return (
     <StyledCard>
@@ -17,6 +18,13 @@ const StandingCard = ({ homeTeamName, awayTeamName, score, date }) => {
   );
 };
 
+StandingCard.propTypes = {
+  homeTeamName: PropTypes.string,
+  awayTeamName: PropTypes.string,
+  score: PropTypes.string,
+  date: PropTypes.string
+};
+
 StandingCard.defaultProps = {
   homeTeamName: '',
   awayTeamName: '',
@@ -24,10 +32,4 @@ StandingCard.defaultProps = {
   date: ''
 };
 
-StandingCard.propTypes = {
-  homeTeamName: PropTypes.string,
-  awayTeamName: PropTypes.string,
-  score: PropTypes.string,
-  date: PropTypes.string
-};
 export default StandingCard;

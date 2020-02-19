@@ -9,9 +9,12 @@ import ListHeader from '../ListHeader';
 import {
   setStandingsRange,
   getStandingsData,
-  setCurrentStandingsPage
+  setCurrentStandingsPage,
+  setCurrentStandingsList,
+  setTotalStandingsNumber
 } from '../../actions';
 import { standingsBetweenRangeSelector } from '../../selectors';
+import { LIST_OFFSET } from '../../../../constants/teamLists';
 
 const { RangePicker } = DatePicker;
 
@@ -33,11 +36,26 @@ const StyledRangePicker = styled(RangePicker)`
 `;
 
 const StandingsList = ({ teamId }) => {
-  const offset = 5;
   const dispatch = useDispatch();
   const currentPage = useSelector(state => state.team.currentStandingsPage);
+  const standingsRange = useSelector(state => state.team.standingsRange);
+  const standingsBetweenRange = useSelector(state =>
+    standingsBetweenRangeSelector(state)
+  );
+  const currentStandingsList = useSelector(
+    state => state.team.currentStandingsList
+  );
+  const totalStandingsNumber = useSelector(
+    state => state.team.totalStandingsNumber
+  );
 
-  useEffect(() => dispatch(getStandingsData(teamId)), []);
+  useEffect(() => {
+    dispatch(getStandingsData(teamId));
+    dispatch(
+      setCurrentStandingsList(standingsBetweenRange.slice(0, LIST_OFFSET))
+    );
+    dispatch(setTotalStandingsNumber(standingsBetweenRange.length));
+  }, [standingsBetweenRange]);
 
   const handleDatePickerChange = value => {
     dispatch(
@@ -47,15 +65,17 @@ const StandingsList = ({ teamId }) => {
 
   const onPaginationChange = page => {
     dispatch(setCurrentStandingsPage(page));
+    dispatch(
+      setCurrentStandingsList(
+        standingsBetweenRange.slice(
+          (page - 1) * LIST_OFFSET,
+          page * LIST_OFFSET
+        )
+      )
+    );
   };
 
-  const standingsRange = useSelector(state => state.team.standingsRange);
-
-  const standingsBetweenRange = useSelector(state =>
-    standingsBetweenRangeSelector(state)
-  );
-
-  const standingCards = standingsBetweenRange.map(match => (
+  const standingCards = currentStandingsList.map(match => (
     <StandingCard
       key={match.id}
       homeTeamName={match.homeTeam.name}
@@ -80,13 +100,21 @@ const StandingsList = ({ teamId }) => {
       </RangePickerWrap>
       <StyledPagination
         defaultCurrent={1}
-        defaultPageSize={offset}
+        defaultPageSize={LIST_OFFSET}
         hideOnSinglePage
-        total={20}
+        total={totalStandingsNumber}
         current={currentPage}
         onChange={onPaginationChange}
       />
-      {standingCards};
+      {standingCards}
+      <StyledPagination
+        defaultCurrent={1}
+        defaultPageSize={LIST_OFFSET}
+        hideOnSinglePage
+        total={totalStandingsNumber}
+        current={currentPage}
+        onChange={onPaginationChange}
+      />
     </>
   );
 };

@@ -23,6 +23,7 @@ const Layout = () => {
       <Content>
         <Switch>
           <Route path="/teams/:team_id" component={Team} />
+          <Route path="/table/:team_id" component={Team} />
           <Route path="/teams" component={TeamsPage} />
           <Route path="/table" component={TablePage} />
           <Redirect from="/" to="/table" />

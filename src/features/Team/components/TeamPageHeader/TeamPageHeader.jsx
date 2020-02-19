@@ -33,6 +33,7 @@ const TeamPageHeader = ({ src, title, shortName }) => {
   const { url } = useRouteMatch();
   const path = useLocation();
   const activeTab = path.pathname.includes('players') ? 'players' : 'standings';
+
   return (
     <StyledCard>
       <Meta
