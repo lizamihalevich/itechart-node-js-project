@@ -1,13 +1,13 @@
 import { request } from './request';
 
-const get = (url, config) => {
-  return request(url, config);
+const get = (url, config = {}) => {
+  return request(url, config); // как post
 };
 
-const post = (url, config) => {
-  request(url, {
-    method: 'post',
-    ...config
+const post = (url, config = {}) => {
+  return request(url, {
+    ...config,
+    method: 'post'
   });
 };
 

@@ -23,6 +23,7 @@ const TeamCard = ({ imageSrc, title, shortName, id }) => {
   const { Meta } = Card;
 
   const { url } = useRouteMatch();
+
   return (
     <StyledCard hoverable>
       <Link to={`${url}/${id}`}>
@@ -42,6 +43,13 @@ TeamCard.propTypes = {
   title: PropTypes.string,
   shortName: PropTypes.string,
   id: PropTypes.number
+};
+
+TeamCard.defaultProps = {
+  imageSrc: '',
+  title: 'No data',
+  shortName: 'No data',
+  id: null
 };
 
 export default TeamCard;

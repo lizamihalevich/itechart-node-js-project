@@ -30,4 +30,9 @@ const ListHeader = ({ pageName }) => {
 ListHeader.propTypes = {
   pageName: PropTypes.string
 };
+
+ListHeader.defaultProps = {
+  pageName: ''
+};
+
 export default ListHeader;

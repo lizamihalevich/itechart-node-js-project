@@ -4,24 +4,31 @@ import { get } from '../../utils/requestFootballApi';
 const setTableData = createAction('SET_TABLE_DATA');
 const setLeagueId = createAction('SET_LEAGUE_ID');
 
-const processData = data => dispatch => {
-  dispatch(setTableData(data.standings[0].table));
-};
+const request = createAction('REQUEST');
+const success = createAction('SUCCESS');
+const failLoad = createAction('FAIL_LOAD');
 
-const getTeamsFromServer = id => async dispatch => {
+const getTeamsData = id => async dispatch => {
   const url = `https://api.football-data.org/v2/competitions/${id}/standings`;
-
+  dispatch(request());
   try {
-    const data = await get(url, { params: { standingType: 'TOTAL' } });
-    dispatch(processData(data.data));
+    const response = await get(url, { params: { standingType: 'TOTAL' } });
+    dispatch(success(response.data.standings[0].table));
   } catch (e) {
-    throw new Error(e);
+    dispatch(failLoad());
   }
 };
 
-const getTableData = id => dispatch => {
-  dispatch(getTeamsFromServer(id));
+const setLeagueTeams = id => dispatch => {
   dispatch(setLeagueId(id));
+  dispatch(getTeamsData(id));
 };
 
-export { setTableData, getTableData, setLeagueId, getTeamsFromServer };
+export {
+  setTableData,
+  setLeagueTeams,
+  setLeagueId,
+  success,
+  request,
+  failLoad
+};

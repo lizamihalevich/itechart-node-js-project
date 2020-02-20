@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { Table } from 'antd';
+import { Table, message } from 'antd';
 import styled from 'styled-components';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { tableStandingsSelector } from '../../selectors';
-import { getTableData } from '../../actions';
 
 const Styledtable = styled(Table)`
   margin: 0 auto 30px auto;
@@ -14,7 +13,6 @@ const Styledtable = styled(Table)`
 `;
 
 const LeagueSummary = () => {
-  const { url } = useRouteMatch();
   const columns = [
     {
       title: 'Position',
@@ -28,7 +26,7 @@ const LeagueSummary = () => {
       key: 'team',
       width: '30%',
       align: 'center',
-      render: (text, record) => <Link to={`${url}/${record.id}`}>{text}</Link>
+      render: (text, record) => <Link to={`/teams/${record.id}`}>{text}</Link>
     },
     {
       title: 'G',
@@ -75,12 +73,23 @@ const LeagueSummary = () => {
   ];
 
   const data = useSelector(state => tableStandingsSelector(state));
-  const leagueId = useSelector(state => state.table.leagueId);
-  const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.table.isLoading);
+  // const isFailed = useSelector(state => state.table.isFailed);
 
-  useEffect(() => dispatch(getTableData(leagueId)), []);
+  // if (isFailed) {
+  //   message.error('Failed to load the data');
+  // }
 
-  return <Styledtable pagination={false} columns={columns} dataSource={data} />;
+  return (
+    <>
+      <Styledtable
+        pagination={false}
+        columns={columns}
+        dataSource={data}
+        loading={isLoading}
+      />
+    </>
+  );
 };
 
 export default LeagueSummary;

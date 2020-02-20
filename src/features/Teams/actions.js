@@ -3,24 +3,19 @@ import { LEAGUES_IDS } from '../../constants/leagues';
 import { get } from '../../utils/requestFootballApi';
 
 const setTeamsLeague = createAction('SET_TEAMS_LEAGUE');
-const setTeamsData = createAction('SET_TEAMS_DATA');
 
-const processData = data => dispatch => {
-  dispatch(setTeamsData(data.teams));
-};
+const request = createAction('REQUEST');
+const success = createAction('SUCCESS');
+const failLoad = createAction('FAIL_LOAD');
 
 const getTeamsInfoFromServer = id => async dispatch => {
   const url = `https://api.football-data.org/v2/competitions/${id}/teams`;
-  // get(url)
-  //   .then(data => dispatch(processData(data)))
-  //   .catch(e => {
-  //     throw e;
-  //   });
+  dispatch(request());
   try {
     const response = await get(url);
-    dispatch(processData(response.data));
+    dispatch(success(response.data.teams));
   } catch (e) {
-    throw new Error(e);
+    dispatch(failLoad());
   }
 };
 
@@ -29,4 +24,4 @@ const getTeamsData = league => dispatch => {
   dispatch(setTeamsLeague(league));
 };
 
-export { setTeamsLeague, setTeamsData, getTeamsData };
+export { setTeamsLeague, getTeamsData, success, request, failLoad };

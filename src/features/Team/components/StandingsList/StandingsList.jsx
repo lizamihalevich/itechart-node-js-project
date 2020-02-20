@@ -122,4 +122,9 @@ const StandingsList = ({ teamId }) => {
 StandingsList.propTypes = {
   teamId: PropTypes.string
 };
+
+StandingsList.defaultProps = {
+  teamId: ''
+};
+
 export default StandingsList;

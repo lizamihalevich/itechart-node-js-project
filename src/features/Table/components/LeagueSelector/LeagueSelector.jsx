@@ -1,8 +1,8 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Menu, message } from 'antd';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTableData } from '../../actions';
+import { setLeagueTeams } from '../../actions';
 import { LEAGUES_IDS } from '../../../../constants/leagues';
 
 const StyledMenu = styled(Menu)`
@@ -16,11 +16,17 @@ const StyledMenu = styled(Menu)`
 const LeagueSelector = () => {
   const dispatch = useDispatch();
   const currentLeague = useSelector(state => state.table.leagueId);
+  const isFailed = useSelector(state => state.table.isFailed);
 
   const menuItems = Object.keys(LEAGUES_IDS).map(league => (
     <Menu.Item
       key={LEAGUES_IDS[league]}
-      onClick={() => dispatch(getTableData(LEAGUES_IDS[league], league))}
+      onClick={() => {
+        dispatch(setLeagueTeams(LEAGUES_IDS[league]));
+        if (isFailed) {
+          message.error('Failed to load the data');
+        }
+      }}
     >
       {league}
     </Menu.Item>

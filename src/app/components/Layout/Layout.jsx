@@ -17,13 +17,13 @@ const StyledLayout = styled(AntLayout)`
 const Layout = () => {
   const path = useLocation();
   const activeMenuTab = path.pathname.includes('table') ? 'table' : 'teams';
+
   return (
     <StyledLayout>
       <FootballHeader activeMenuTab={activeMenuTab} />
       <Content>
         <Switch>
           <Route path="/teams/:team_id" component={Team} />
-          <Route path="/table/:team_id" component={Team} />
           <Route path="/teams" component={TeamsPage} />
           <Route path="/table" component={TablePage} />
           <Redirect from="/" to="/table" />

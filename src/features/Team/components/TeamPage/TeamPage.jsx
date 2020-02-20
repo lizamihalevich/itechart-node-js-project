@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import TeamPageHeader from '../TeamPageHeader';
 import PlayersList from '../PlayersList';
 import StandingsList from '../StandingsList/StandingsList';
-import { getTeamData } from '../../actions';
+import { setTeamInfo } from '../../actions';
 import { squadDataDisplaySelector } from '../../selectors';
 
 const TeamPage = ({ match: { params } }) => {
@@ -16,7 +16,7 @@ const TeamPage = ({ match: { params } }) => {
   const filteredSquad = useSelector(state => squadDataDisplaySelector(state));
 
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getTeamData(teamId)), []);
+  useEffect(() => dispatch(setTeamInfo(teamId)), []);
 
   return (
     <>
@@ -41,7 +41,7 @@ const TeamPage = ({ match: { params } }) => {
 TeamPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      team_id: PropTypes.string
+      team_id: PropTypes.string.isRequired
     })
   })
 };

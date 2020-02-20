@@ -39,6 +39,7 @@ const PlayerCard = ({ name, position, birthDate, squadNumber }) => {
     .utc()
     .format('DD-MM-YYYY');
   const shirtNumber = squadNumber || 'N/A';
+
   return (
     <StyledCard>
       <Meta
@@ -56,6 +57,13 @@ PlayerCard.propTypes = {
   position: PropTypes.string,
   birthDate: PropTypes.string,
   squadNumber: PropTypes.number
+};
+
+PlayerCard.defaultProps = {
+  name: 'No data',
+  position: 'No data',
+  birthDate: 'No data',
+  squadNumber: null
 };
 
 export default PlayerCard;

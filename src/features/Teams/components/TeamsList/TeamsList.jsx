@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import styled from 'styled-components';
+import { Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import TeamCard from '../TeamCard';
 import { teamsInfoSelector } from '../../selectors';
@@ -12,9 +13,14 @@ const StyledDiv = styled.div`
   justify-content: space-between;
 `;
 
+const StyledSpin = styled(Spin)`
+  margin: 20px auto;
+`;
+
 const TeamsList = () => {
   const teamsInfo = useSelector(state => teamsInfoSelector(state));
   const league = useSelector(state => state.teams.league);
+  const isLoading = useSelector(state => state.teams.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(getTeamsData(league)), []);
@@ -29,7 +35,9 @@ const TeamsList = () => {
     />
   ));
 
-  return <StyledDiv>{cards}</StyledDiv>;
+  return (
+    <StyledDiv>{isLoading ? <StyledSpin size="large" /> : cards}</StyledDiv>
+  );
 };
 
 export default TeamsList;

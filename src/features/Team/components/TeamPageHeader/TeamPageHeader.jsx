@@ -59,4 +59,10 @@ TeamPageHeader.propTypes = {
   shortName: PropTypes.string
 };
 
+TeamPageHeader.defaultProps = {
+  src: '',
+  title: 'No data',
+  shortName: 'No data'
+};
+
 export default TeamPageHeader;

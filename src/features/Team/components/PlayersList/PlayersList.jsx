@@ -29,7 +29,7 @@ const PlayersList = ({ squad }) => {
     dispatch(
       setCurrentSquadList(
         squad.slice((page - 1) * LIST_OFFSET, page * LIST_OFFSET)
-      )
+      ) // to actions + filering
     );
   };
 
@@ -42,32 +42,26 @@ const PlayersList = ({ squad }) => {
       squadNumber={player.shirtNumber}
     />
   ));
+
+  const pagination = (
+    <StyledPagination
+      defaultCurrent={1}
+      defaultPageSize={LIST_OFFSET}
+      hideOnSinglePage
+      total={totalSquadNumber}
+      current={currentPage}
+      onChange={onPaginationChange}
+    />
+  );
+
   return (
     <>
       <ListHeader pageName="Players" />
-      <StyledPagination
-        defaultCurrent={1}
-        defaultPageSize={LIST_OFFSET}
-        hideOnSinglePage
-        total={totalSquadNumber}
-        current={currentPage}
-        onChange={onPaginationChange}
-      />
+      {pagination}
       {players}
-      <StyledPagination
-        defaultCurrent={1}
-        defaultPageSize={LIST_OFFSET}
-        hideOnSinglePage
-        total={totalSquadNumber}
-        current={currentPage}
-        onChange={onPaginationChange}
-      />
+      {pagination}
     </>
   );
-};
-
-PlayersList.defaultProps = {
-  squad: []
 };
 
 PlayersList.propTypes = {
@@ -79,6 +73,10 @@ PlayersList.propTypes = {
       shirtNumber: PropTypes.number
     })
   )
+};
+
+PlayersList.defaultProps = {
+  squad: []
 };
 
 export default PlayersList;
