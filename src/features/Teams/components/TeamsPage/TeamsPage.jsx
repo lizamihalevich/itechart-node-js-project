@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Select, Layout } from 'antd';
+import { Select, Layout, message } from 'antd';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { LEAGUES_IDS } from '../../../../constants/leagues';
@@ -31,6 +31,7 @@ const StyledHeader = styled(Header)`
 
 const TeamsPage = () => {
   const currentLeague = useSelector(state => state.teams.league);
+  const isFailed = useSelector(state => state.teams.isFailed);
   const dispatch = useDispatch();
 
   const handleChange = league => {
@@ -38,7 +39,15 @@ const TeamsPage = () => {
   };
 
   const leagues = Object.keys(LEAGUES_IDS).map(league => (
-    <Option key={league} value={league}>
+    <Option
+      key={league}
+      value={league}
+      onClick={() => {
+        if (isFailed) {
+          message.error('Failed to load the data');
+        }
+      }}
+    >
       {league}
     </Option>
   ));

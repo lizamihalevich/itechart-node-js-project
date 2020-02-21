@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { DatePicker, Pagination } from 'antd';
+import { DatePicker, Pagination, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -8,7 +8,7 @@ import StandingCard from '../StandingCard';
 import ListHeader from '../ListHeader';
 import {
   setStandingsRange,
-  getStandingsData,
+  setStandingsInfo,
   setCurrentStandingsPage,
   setCurrentStandingsList,
   setTotalStandingsNumber
@@ -35,6 +35,16 @@ const StyledRangePicker = styled(RangePicker)`
   width: 100%;
 `;
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const StyledSpin = styled(Spin)`
+  margin: 20px auto;
+`;
+
 const StandingsList = ({ teamId }) => {
   const dispatch = useDispatch();
   const currentPage = useSelector(state => state.team.currentStandingsPage);
@@ -48,9 +58,10 @@ const StandingsList = ({ teamId }) => {
   const totalStandingsNumber = useSelector(
     state => state.team.totalStandingsNumber
   );
+  const isLoading = useSelector(state => state.team.playersIsLoading);
 
   useEffect(() => {
-    dispatch(getStandingsData(teamId));
+    dispatch(setStandingsInfo(teamId));
     dispatch(
       setCurrentStandingsList(standingsBetweenRange.slice(0, LIST_OFFSET))
     );
@@ -89,6 +100,17 @@ const StandingsList = ({ teamId }) => {
     />
   ));
 
+  const pagination = (
+    <StyledPagination
+      defaultCurrent={1}
+      defaultPageSize={LIST_OFFSET}
+      hideOnSinglePage
+      total={totalStandingsNumber}
+      current={currentPage}
+      onChange={onPaginationChange}
+    />
+  );
+
   return (
     <>
       <ListHeader pageName="Standings" />
@@ -98,23 +120,17 @@ const StandingsList = ({ teamId }) => {
           defaultValue={[moment(standingsRange[0]), moment(standingsRange[1])]}
         />
       </RangePickerWrap>
-      <StyledPagination
-        defaultCurrent={1}
-        defaultPageSize={LIST_OFFSET}
-        hideOnSinglePage
-        total={totalStandingsNumber}
-        current={currentPage}
-        onChange={onPaginationChange}
-      />
-      {standingCards}
-      <StyledPagination
-        defaultCurrent={1}
-        defaultPageSize={LIST_OFFSET}
-        hideOnSinglePage
-        total={totalStandingsNumber}
-        current={currentPage}
-        onChange={onPaginationChange}
-      />
+      {isLoading ? (
+        <StyledDiv>
+          <StyledSpin size="large" />
+        </StyledDiv>
+      ) : (
+        <>
+          {pagination}
+          {standingCards}
+          {pagination}
+        </>
+      )}
     </>
   );
 };

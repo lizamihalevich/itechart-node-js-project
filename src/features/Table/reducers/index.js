@@ -1,6 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { success, request, failLoad, setLeagueId } from '../actions';
+import {
+  successTableTeams,
+  requestTableTeams,
+  failLoadTableTeams,
+  setLeagueId
+} from '../actions';
 import {
   LEAGUES_IDS,
   ENGLISH_PREMIER_LEAGUE
@@ -14,16 +19,16 @@ const tableReducer = createReducer(
     tableData: []
   },
   {
-    [success]: (state, action) => {
+    [successTableTeams]: (state, action) => {
       state.tableData = action.payload;
       state.isLoading = false;
     },
 
-    [request]: state => {
+    [requestTableTeams]: state => {
       state.isLoading = true;
     },
 
-    [failLoad]: state => {
+    [failLoadTableTeams]: state => {
       state.isFailed = true;
       state.isLoading = false;
     },

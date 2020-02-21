@@ -4,18 +4,18 @@ import { get } from '../../utils/requestFootballApi';
 
 const setTeamsLeague = createAction('SET_TEAMS_LEAGUE');
 
-const request = createAction('REQUEST');
-const success = createAction('SUCCESS');
-const failLoad = createAction('FAIL_LOAD');
+const requestTeamsInfo = createAction('REQUEST_TEAMS_INFO');
+const successTeamsInfo = createAction('SUCCESS_TEAMS_INFO');
+const failLoadTeamsInfo = createAction('FAIL_LOAD_TEAMS_INFO');
 
 const getTeamsInfoFromServer = id => async dispatch => {
   const url = `https://api.football-data.org/v2/competitions/${id}/teams`;
-  dispatch(request());
+  dispatch(requestTeamsInfo());
   try {
     const response = await get(url);
-    dispatch(success(response.data.teams));
+    dispatch(successTeamsInfo(response.data.teams));
   } catch (e) {
-    dispatch(failLoad());
+    dispatch(failLoadTeamsInfo());
   }
 };
 
@@ -24,4 +24,10 @@ const getTeamsData = league => dispatch => {
   dispatch(setTeamsLeague(league));
 };
 
-export { setTeamsLeague, getTeamsData, success, request, failLoad };
+export {
+  setTeamsLeague,
+  getTeamsData,
+  successTeamsInfo,
+  requestTeamsInfo,
+  failLoadTeamsInfo
+};

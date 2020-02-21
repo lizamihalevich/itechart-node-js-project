@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { get } from '../../utils/requestFootballApi';
+import sort from '../../utils/sort';
 
-const setStandings = createAction('SET_STANDINGS');
 const setStandingsRange = createAction('SET_STANDINGS_RANGE');
 const setCurrentSquadPage = createAction('SET_CURRENT_SQUAD_PAGE');
 const setCurrentSquadList = createAction('SET_CURRENT_SQUAD_LIST');
@@ -9,18 +9,32 @@ const setTotalStandingsNumber = createAction('SET_TOTAL_STANDINGS_NUMBER');
 const setCurrentStandingsPage = createAction('SET_CURRENT_STANDINGS_PAGE');
 const setCurrentStandingsList = createAction('SET_CURRENT_STANDINGS_LIST');
 
-const success = createAction('SUCCESS');
-const request = createAction('REQUEST');
-const failLoad = createAction('FAIL_LOAD');
+// players
+
+const successPlayersInfo = createAction('SUCCESS_PLAYERS_INFO', team => {
+  return {
+    payload: {
+      team,
+      squad: team.squad.sort((player1, player2) =>
+        sort(player1.shirtNumber, player2.shirtNumber)
+      ),
+      total: team.squad.length
+    }
+  };
+});
+
+const requestPlayersInfo = createAction('REQUEST_PLAYERS_INFO');
+const failLoadPlayersInfo = createAction('FAIL_LOAD_PLAYERS_INFO');
 
 const getTeamData = id => async dispatch => {
   const url = `https://api.football-data.org/v2/teams/${id}`;
-  dispatch(request());
+  dispatch(requestPlayersInfo());
+
   try {
     const response = await get(url);
-    dispatch(success(response.data));
+    dispatch(successPlayersInfo(response.data));
   } catch (e) {
-    dispatch(failLoad());
+    dispatch(failLoadPlayersInfo());
   }
 };
 
@@ -28,26 +42,37 @@ const setTeamInfo = id => dispatch => {
   dispatch(getTeamData(id));
 };
 
-const getStandingsDataFromServer = id => async dispatch => {
+// standings
+
+const successStandingsInfo = createAction('SUCCESS_STANDINGS_INFO');
+const requestStandingsInfo = createAction('REQUEST_STANDINGS_INFO');
+const failLoadStandingsInfo = createAction('FAIL_LOAD_STANDINGS_INFO');
+
+const getStandingsData = id => async dispatch => {
   const url = `http://api.football-data.org/v2/teams/${id}/matches`;
+  dispatch(requestStandingsInfo());
 
   try {
     const response = await get(url);
-    dispatch(setStandings(response.data.matches));
+    dispatch(successStandingsInfo(response.data.matches));
   } catch (e) {
-    throw new Error(e);
+    dispatch(failLoadStandingsInfo());
   }
 };
 
-const getStandingsData = id => dispatch => {
-  dispatch(getStandingsDataFromServer(id));
+const setStandingsInfo = id => dispatch => {
+  dispatch(getStandingsData(id));
 };
 
 export {
-  success,
+  successPlayersInfo,
+  requestPlayersInfo,
+  failLoadPlayersInfo,
   setTeamInfo,
-  setStandings,
-  getStandingsData,
+  successStandingsInfo,
+  requestStandingsInfo,
+  failLoadStandingsInfo,
+  setStandingsInfo,
   setStandingsRange,
   setCurrentSquadPage,
   setCurrentSquadList,

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Table, message } from 'antd';
+import { Table } from 'antd';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -71,21 +70,16 @@ const LeagueSummary = () => {
       align: 'center'
     }
   ];
-
   const data = useSelector(state => tableStandingsSelector(state));
   const isLoading = useSelector(state => state.table.isLoading);
-  // const isFailed = useSelector(state => state.table.isFailed);
-
-  // if (isFailed) {
-  //   message.error('Failed to load the data');
-  // }
+  const isFailed = useSelector(state => state.table.isFailed);
 
   return (
     <>
       <Styledtable
         pagination={false}
         columns={columns}
-        dataSource={data}
+        dataSource={isFailed ? null : data}
         loading={isLoading}
       />
     </>

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import styled from 'styled-components';
 import PlayerCard from '../PlayerCard';
 import ListHeader from '../ListHeader';
@@ -14,10 +13,22 @@ const StyledPagination = styled(Pagination)`
   justify-content: center;
 `;
 
-const PlayersList = ({ squad }) => {
+const StyledDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const StyledSpin = styled(Spin)`
+  margin: 20px auto;
+`;
+
+const PlayersList = () => {
   const totalSquadNumber = useSelector(state => state.team.totalSquadNumber);
+  const squad = useSelector(state => state.team.squad);
   const currentPage = useSelector(state => state.team.currentSquadPage);
   const currentSquadList = useSelector(state => state.team.currentSquadList);
+  const isLoading = useSelector(state => state.team.playersIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,26 +68,19 @@ const PlayersList = ({ squad }) => {
   return (
     <>
       <ListHeader pageName="Players" />
-      {pagination}
-      {players}
-      {pagination}
+      {isLoading ? (
+        <StyledDiv>
+          <StyledSpin size="large" />
+        </StyledDiv>
+      ) : (
+        <>
+          {pagination}
+          {players}
+          {pagination}
+        </>
+      )}
     </>
   );
-};
-
-PlayersList.propTypes = {
-  squad: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      position: PropTypes.string,
-      dateOfBirth: PropTypes.string,
-      shirtNumber: PropTypes.number
-    })
-  )
-};
-
-PlayersList.defaultProps = {
-  squad: []
 };
 
 export default PlayersList;

@@ -1,8 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import moment from 'moment';
 import {
-  success,
-  setStandings,
+  successPlayersInfo,
+  requestPlayersInfo,
+  failLoadPlayersInfo,
+  successStandingsInfo,
+  requestStandingsInfo,
+  failLoadStandingsInfo,
   setStandingsRange,
   setCurrentSquadPage,
   setCurrentSquadList,
@@ -27,17 +31,41 @@ const teamReducer = createReducer(
     currentSquadList: [],
     totalStandingsNumber: 1,
     currentStandingsPage: 1,
-    currentStandingsList: []
+    currentStandingsList: [],
+    playersIsLoading: false,
+    playersIsFailed: false,
+    standingsIsLoading: false,
+    standingsIsFailed: false
   },
   {
-    [success]: (state, action) => {
-      state.teamData = action.payload;
+    [successPlayersInfo]: (state, action) => {
+      state.teamData = action.payload.team;
       state.squad = action.payload.squad;
-      state.totalSquadNumber = action.payload.squad.length;
+      state.totalSquadNumber = action.payload.total;
+      state.playersIsLoading = false;
     },
 
-    [setStandings]: (state, action) => {
+    [requestPlayersInfo]: state => {
+      state.playersIsLoading = true;
+    },
+
+    [failLoadPlayersInfo]: state => {
+      state.playersIsFailed = true;
+      state.playersIsLoading = false;
+    },
+
+    [successStandingsInfo]: (state, action) => {
       state.standings = action.payload;
+      state.standingsIsLoading = false;
+    },
+
+    [requestStandingsInfo]: state => {
+      state.standingsIsLoading = true;
+    },
+
+    [failLoadStandingsInfo]: state => {
+      state.standingsIsFailed = true;
+      state.standingsIsLoading = false;
     },
 
     [setStandingsRange]: (state, action) => {

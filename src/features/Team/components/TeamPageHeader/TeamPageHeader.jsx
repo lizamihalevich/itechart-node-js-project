@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Menu, Card } from 'antd';
+import { useSelector } from 'react-redux';
 
 const StyledCard = styled(Card)`
   width: 100%;
@@ -33,9 +34,10 @@ const TeamPageHeader = ({ src, title, shortName }) => {
   const { url } = useRouteMatch();
   const path = useLocation();
   const activeTab = path.pathname.includes('players') ? 'players' : 'standings';
+  const isLoading = useSelector(state => state.team.playersIsLoading);
 
   return (
-    <StyledCard>
+    <StyledCard loading={isLoading}>
       <Meta
         avatar={<CardImage alt={title} src={src} />}
         title={title}
