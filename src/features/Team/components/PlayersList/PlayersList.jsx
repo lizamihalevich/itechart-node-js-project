@@ -4,7 +4,7 @@ import { Pagination, Spin } from 'antd';
 import styled from 'styled-components';
 import PlayerCard from '../PlayerCard';
 import ListHeader from '../ListHeader';
-import { setCurrentSquadPage, setCurrentSquadList } from '../../actions';
+import { setCurrentSquadListOnPage } from '../../actions';
 import { LIST_OFFSET } from '../../../../constants/teamLists';
 
 const StyledPagination = styled(Pagination)`
@@ -32,16 +32,11 @@ const PlayersList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCurrentSquadList(squad.slice(0, LIST_OFFSET)));
+    dispatch(setCurrentSquadListOnPage(1));
   }, [squad]);
 
   const onPaginationChange = page => {
-    dispatch(setCurrentSquadPage(page));
-    dispatch(
-      setCurrentSquadList(
-        squad.slice((page - 1) * LIST_OFFSET, page * LIST_OFFSET)
-      ) // to actions + filering
-    );
+    dispatch(setCurrentSquadListOnPage(page));
   };
 
   const players = currentSquadList.map(player => (

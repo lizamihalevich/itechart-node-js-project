@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { DatePicker, Pagination, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import moment from 'moment';
 import StandingCard from '../StandingCard';
 import ListHeader from '../ListHeader';
-import {
-  setStandingsRange,
-  setStandingsInfo,
-  setCurrentStandingsPage,
-  setCurrentStandingsList,
-  setTotalStandingsNumber
-} from '../../actions';
-import { standingsBetweenRangeSelector } from '../../selectors';
+import { setCurrentStandingsPage, setStandingsList } from '../../actions';
+import { currentStandingsListSelector } from '../../selectors';
 import { LIST_OFFSET } from '../../../../constants/teamLists';
 
 const { RangePicker } = DatePicker;
@@ -45,45 +38,33 @@ const StyledSpin = styled(Spin)`
   margin: 20px auto;
 `;
 
-const StandingsList = ({ teamId }) => {
+const StandingsList = () => {
   const dispatch = useDispatch();
   const currentPage = useSelector(state => state.team.currentStandingsPage);
   const standingsRange = useSelector(state => state.team.standingsRange);
-  const standingsBetweenRange = useSelector(state =>
-    standingsBetweenRangeSelector(state)
-  );
-  const currentStandingsList = useSelector(
-    state => state.team.currentStandingsList
+  const standings = useSelector(state => state.team.standings);
+
+  const currentStandingsList = useSelector(state =>
+    currentStandingsListSelector(state)
   );
   const totalStandingsNumber = useSelector(
     state => state.team.totalStandingsNumber
   );
-  const isLoading = useSelector(state => state.team.playersIsLoading);
+  const isLoading = useSelector(state => state.team.standingsIsLoading);
 
   useEffect(() => {
-    dispatch(setStandingsInfo(teamId));
-    dispatch(
-      setCurrentStandingsList(standingsBetweenRange.slice(0, LIST_OFFSET))
-    );
-    dispatch(setTotalStandingsNumber(standingsBetweenRange.length));
-  }, [standingsBetweenRange]);
+    dispatch(setCurrentStandingsPage(1));
+    dispatch(setStandingsList(standingsRange));
+  }, [standings]);
 
   const handleDatePickerChange = value => {
     dispatch(
-      setStandingsRange([moment(value[0]).format(), moment(value[1]).format()])
+      setStandingsList([moment(value[0]).format(), moment(value[1]).format()])
     );
   };
 
   const onPaginationChange = page => {
     dispatch(setCurrentStandingsPage(page));
-    dispatch(
-      setCurrentStandingsList(
-        standingsBetweenRange.slice(
-          (page - 1) * LIST_OFFSET,
-          page * LIST_OFFSET
-        )
-      )
-    );
   };
 
   const standingCards = currentStandingsList.map(match => (
@@ -133,14 +114,6 @@ const StandingsList = ({ teamId }) => {
       )}
     </>
   );
-};
-
-StandingsList.propTypes = {
-  teamId: PropTypes.string
-};
-
-StandingsList.defaultProps = {
-  teamId: ''
 };
 
 export default StandingsList;

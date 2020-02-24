@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import TeamPageHeader from '../TeamPageHeader';
 import PlayersList from '../PlayersList';
 import StandingsList from '../StandingsList/StandingsList';
-import { setTeamInfo } from '../../actions';
+import { setTeamInfo, setStandingsInfo } from '../../actions';
 
 const TeamPage = ({ match: { params } }) => {
   const { path } = useRouteMatch();
@@ -13,7 +13,10 @@ const TeamPage = ({ match: { params } }) => {
   const teamData = useSelector(state => state.team.teamData);
 
   const dispatch = useDispatch();
-  useEffect(() => dispatch(setTeamInfo(teamId)), []);
+  useEffect(() => {
+    dispatch(setTeamInfo(teamId));
+    dispatch(setStandingsInfo(teamId));
+  }, []);
 
   return (
     <>
@@ -27,7 +30,7 @@ const TeamPage = ({ match: { params } }) => {
           <PlayersList />
         </Route>
         <Route path={`${path}/standings`}>
-          <StandingsList teamId={teamId} />
+          <StandingsList />
         </Route>
         <Redirect from={path} to={`${path}/players`} />
       </Switch>

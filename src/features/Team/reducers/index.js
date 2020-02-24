@@ -8,6 +8,7 @@ import {
   requestStandingsInfo,
   failLoadStandingsInfo,
   setStandingsRange,
+  setStandingsBetweenRange,
   setCurrentSquadPage,
   setCurrentSquadList,
   setCurrentStandingsPage,
@@ -26,6 +27,7 @@ const teamReducer = createReducer(
         .add(2, 'w')
         .format()
     ],
+    standingsBetweenRange: [],
     totalSquadNumber: 1,
     currentSquadPage: 1,
     currentSquadList: [],
@@ -66,6 +68,10 @@ const teamReducer = createReducer(
     [failLoadStandingsInfo]: state => {
       state.standingsIsFailed = true;
       state.standingsIsLoading = false;
+    },
+
+    [setStandingsBetweenRange]: (state, action) => {
+      state.standingsBetweenRange = action.payload;
     },
 
     [setStandingsRange]: (state, action) => {
