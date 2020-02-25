@@ -64,4 +64,8 @@ FootballHeader.propTypes = {
   activeMenuTab: PropTypes.string
 };
 
+FootballHeader.defaultProps = {
+  activeMenuTab: 'table'
+};
+
 export default FootballHeader;

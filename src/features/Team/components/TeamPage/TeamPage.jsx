@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, useRouteMatch, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import TeamPageHeader from '../TeamPageHeader';
 import PlayersList from '../PlayersList';
@@ -8,7 +8,6 @@ import StandingsList from '../StandingsList/StandingsList';
 import { setTeamInfo, setStandingsInfo } from '../../actions';
 
 const TeamPage = ({ match: { params } }) => {
-  const { path } = useRouteMatch();
   const teamId = params.team_id;
   const teamData = useSelector(state => state.team.teamData);
 
@@ -26,13 +25,13 @@ const TeamPage = ({ match: { params } }) => {
         shortName={teamData.shortName}
       />
       <Switch>
-        <Route path={`${path}/players`}>
+        <Route path="/teams/:team_id/players">
           <PlayersList />
         </Route>
-        <Route path={`${path}/standings`}>
+        <Route path="/teams/:team_id/standings">
           <StandingsList />
         </Route>
-        <Redirect from={path} to={`${path}/players`} />
+        <Redirect from="/teams/:team_id" to="/teams/:team_id/players" />
       </Switch>
     </>
   );
