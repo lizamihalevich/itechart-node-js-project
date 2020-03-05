@@ -1,0 +1,22 @@
+const ENGLISH_PREMIER_LEAGUE = 'English Premier League';
+const GERMAN_1_BUNDESLIGA = 'German 1.Bundesliga';
+const SPANISH_PRIMERA = 'Spanish Primera';
+const ITALIAN_SERIE_A = 'Italian Serie A';
+const FRENCH_LEAGUE_1 = 'French League 1';
+
+const LEAGUES_IDS = {
+  [ENGLISH_PREMIER_LEAGUE]: '2021',
+  [GERMAN_1_BUNDESLIGA]: '2002',
+  [SPANISH_PRIMERA]: '2014',
+  [ITALIAN_SERIE_A]: '2019',
+  [FRENCH_LEAGUE_1]: '2015'
+};
+
+export {
+  ENGLISH_PREMIER_LEAGUE,
+  GERMAN_1_BUNDESLIGA,
+  SPANISH_PRIMERA,
+  ITALIAN_SERIE_A,
+  FRENCH_LEAGUE_1,
+  LEAGUES_IDS
+};
