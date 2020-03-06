@@ -27,6 +27,7 @@
     "jsx-a11y/anchor-is-valid": "off",
     "array-callback-return": "off",
     "import/extensions": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off"
   }
 }

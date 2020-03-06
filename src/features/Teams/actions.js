@@ -3,6 +3,7 @@ import { LEAGUES_IDS } from '../../constants/leagues';
 import { get } from '../../utils/requestFootballApi';
 
 const setTeamsLeague = createAction('SET_TEAMS_LEAGUE');
+const addTeamToFavourites = createAction('ADD_TEAM_TO_FAVOURITES');
 
 const requestTeamsInfo = createAction('REQUEST_TEAMS_INFO');
 const successTeamsInfo = createAction('SUCCESS_TEAMS_INFO');
@@ -29,5 +30,6 @@ export {
   getTeamsData,
   successTeamsInfo,
   requestTeamsInfo,
-  failLoadTeamsInfo
+  failLoadTeamsInfo,
+  addTeamToFavourites
 };

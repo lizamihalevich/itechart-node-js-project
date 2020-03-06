@@ -4,7 +4,8 @@ import {
   setTeamsLeague,
   successTeamsInfo,
   requestTeamsInfo,
-  failLoadTeamsInfo
+  failLoadTeamsInfo,
+  addTeamToFavourites
 } from '../actions';
 import { ENGLISH_PREMIER_LEAGUE } from '../../../constants/leagues';
 
@@ -13,7 +14,8 @@ const teamsReducer = createReducer(
     league: ENGLISH_PREMIER_LEAGUE,
     isLoading: false,
     isFailed: false,
-    teamsData: []
+    teamsData: [],
+    favouriteTeams: []
   },
   {
     [setTeamsLeague]: (state, action) => {
@@ -32,6 +34,10 @@ const teamsReducer = createReducer(
     [failLoadTeamsInfo]: state => {
       state.isLoading = false;
       state.isFailed = true;
+    },
+
+    [addTeamToFavourites]: (state, action) => {
+      state.favouriteTeams += action.payload;
     }
   }
 );

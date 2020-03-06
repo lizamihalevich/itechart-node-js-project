@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Card, Button } from 'antd';
+import { useDispatch } from 'react-redux';
+import { addTeamToFavourites } from '../../actions';
 
 const StyledCard = styled(Card)`
   width: 48%;
@@ -23,6 +25,11 @@ const TeamCard = ({ imageSrc, title, shortName, id }) => {
   const { Meta } = Card;
 
   const { url } = useRouteMatch();
+  const dispatch = useDispatch();
+
+  const handleClick = team => {
+    dispatch(addTeamToFavourites(team));
+  };
 
   return (
     <StyledCard hoverable>
@@ -33,7 +40,9 @@ const TeamCard = ({ imageSrc, title, shortName, id }) => {
           description={`Short name: ${shortName}`}
         />
       </Link>
-      <StyledButton type="primary">Add team to favorites</StyledButton>
+      <StyledButton type="primary" onClick={handleClick(id)}>
+        Add team to favorites
+      </StyledButton>
     </StyledCard>
   );
 };

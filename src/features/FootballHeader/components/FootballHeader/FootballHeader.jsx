@@ -32,6 +32,7 @@ const StyledButton = styled(Button)`
 `;
 
 const FootballHeader = ({ activeMenuTab }) => {
+  const handleSignInClick = () => {};
   return (
     <StyledHeader>
       <HeaderSummary>
@@ -52,9 +53,13 @@ const FootballHeader = ({ activeMenuTab }) => {
       </HeaderSummary>
 
       <Authentication>
-        <StyledButton type="primary">Sign In</StyledButton>
+        <StyledButton type="primary" onClick={handleSignInClick}>
+          <Link to="/signin">Sign In</Link>
+        </StyledButton>
         <div>or</div>
-        <StyledButton type="primary">Sign Up</StyledButton>
+        <StyledButton type="primary">
+          <Link to="/signup">Sign Up</Link>
+        </StyledButton>
       </Authentication>
     </StyledHeader>
   );

@@ -1,7 +1,10 @@
 import { request } from './request';
 
 const get = (url, config = {}) => {
-  return request(url, config); // как post
+  return request(url, {
+    ...config,
+    method: 'get'
+  });
 };
 
 const post = (url, config = {}) => {
