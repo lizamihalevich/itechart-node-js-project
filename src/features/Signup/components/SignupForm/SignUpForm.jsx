@@ -3,7 +3,7 @@ import { Form, Input, Button, DatePicker } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { addNewUser } from '../../actions';
+import { addNewUserToDatabase } from '../../actions';
 
 const StyledForm = styled(Form)`
   max-width: 500px;
@@ -18,7 +18,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmitSignUp = values => {
-    dispatch(addNewUser(values));
+    dispatch(addNewUserToDatabase(values));
   };
 
   const layout = {
