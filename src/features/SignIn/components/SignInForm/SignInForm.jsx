@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { setAuthData } from '../../actions';
+import { signInUser } from '../../actions';
 
 const StyledForm = styled(Form)`
   max-width: 300px;
@@ -23,7 +23,8 @@ const SignInForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = values => {
-    dispatch(setAuthData(values));
+    console.log(values);
+    dispatch(signInUser(values));
   };
 
   return (
@@ -62,7 +63,7 @@ const SignInForm = () => {
           htmlType="submit"
           className="login-form-button"
         >
-          <Link to="/my-profile">Sign in</Link>
+          Sign in
         </StyledButton>
         Or <Link to="/signup">register now!</Link>
       </Form.Item>

@@ -24,7 +24,8 @@ const UserInfo = () => {
           src="https://miro.medium.com/max/480/0*WK_vAxJo4O7Kdq3j.png"
         />
         <StyledUserInfo>
-          <h1>User info</h1>
+          <h1>Name Surname</h1>
+          <p>Date of birth: </p>
         </StyledUserInfo>
       </StyledCardContainer>
     </StyledCard>
